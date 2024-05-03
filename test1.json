@@ -17,7 +17,7 @@
             "order": 1,
             "description": "Atom Status"
           },
-          "data_source_name": "Apica Monitoring"
+          "data_source_name": "ApicaMonitoring"
         },
         {
           "query": "",
@@ -50,7 +50,7 @@
             },
             "description": "CPU Utilization"
           },
-          "data_source_name": "Apica Monitoring"
+          "data_source_name": "ApicaMonitoring"
         },
         {
           "query": "avg by (instance) (100 - (100 * system_memory_usage_bytes{state='used',hostname=~'.*'} / ( 4 * 1024 * 1024 * 1024)))&duration=1h&step=5m",
