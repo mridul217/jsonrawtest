@@ -1,0 +1,143 @@
+{
+    "tabs": [
+      {
+        "key": "Quick CPU/MEM/Disk",
+        "title": "Quick CPU/MEM/Disk",
+        "type": "metrics",
+        "order": "1",
+        "queriesList": [
+          {
+            "query": "(((count(count(node_cpu_seconds_total{instance=~'.*',job='node-exporter'}) by (cpu))) - avg(sum by (mode)(rate(node_cpu_seconds_total{mode='idle',instance=~'.*',job='node-exporter'}[{{interval}}])))) * 100) / count(count(node_cpu_seconds_total{instance=~'.*',job='node-exporter'}) by (cpu))&duration=1h&step=5m",
+            "chart_type": "gauge",
+            "name": "CPU Busy",
+            "schema": "node_cpu_seconds_total",
+            "options": {
+              "label": "percent",
+              "order": 1,
+              "zone": {
+                "alert": 60,
+                "danger": 80
+              },
+              "plot": {
+                "xLabel": "",
+                "yLabel": "",
+                "x": "Timestamp",
+                "y": [
+                  "value"
+                ],
+                "groupBy": "",
+                "errorColumn": ""
+              }
+            },
+            "data_source_name": "Apica Monitoring"
+          },
+          {
+            "query": "avg(node_load15{instance=~'.*',job='node-exporter'}) /  count(count(node_cpu_seconds_total{instance=~'.*',job='node-exporter'}) by (cpu)) * 100&duration=1h&step=5m",
+            "chart_type": "gauge",
+            "name": "Sys Load (15m avg)",
+            "schema": "node_load15",
+            "options": {
+              "label": "percent",
+              "upperLimit": "",
+              "order": 2,
+              "zone": {
+                "alert": 60,
+                "danger": 80
+              },
+              "description": "CPU Utilization",
+              "plot": {
+                "xLabel": "Timestamp",
+                "yLabel": "value",
+                "x": "Timestamp",
+                "y": [
+                  "value"
+                ],
+                "groupBy": "",
+                "errorColumn": ""
+              }
+            },
+            "data_source_name": "Apica Monitoring"
+          },
+          {
+            "query": "((node_memory_SwapTotal_bytes{instance=~'.*,job='node-exporter'} - node_memory_SwapFree_bytes{instance=~'.*,job='node-exporter'}) / (node_memory_SwapTotal_bytes{instance=~'.*,job='node-exporter'} )) * 100&duration=1h&step=5m",
+            "chart_type": "counter",
+            "name": "Swap Used",
+            "schema": "node_memory_SwapTotal_bytes",
+            "options": {
+              "label": "percent",
+              "order": 3,
+              "zone": {
+                "alert": 60,
+                "danger": 80
+              },
+              "plot": {
+                "xLabel": "Timestamp",
+                "yLabel": "",
+                "x": "Timestamp",
+                "y": [
+                  "value"
+                ],
+                "groupBy": "",
+                "errorColumn": ""
+              }
+            },
+            "data_source_name": "Apica Monitoring"
+          },
+          {
+            "query": "100 - ((node_memory_MemAvailable_bytes{instance=~'.*',job='node-exporter'} * 100) / node_memory_MemTotal_bytes{instance=~'.*',job='node-exporter'})&duration=1h&step=5m",
+            "chart_type": "gauge",
+            "name": "Ram Used",
+            "schema": "kube_node_info",
+            "options": {
+              "label": "Count",
+              "order": 4,
+              "zone": {
+                "alert": 60,
+                "danger": 80
+              },
+              "plot": {
+                "xLabel": "Timestamp",
+                "yLabel": "",
+                "x": "Timestamp",
+                "y": [
+                  "value"
+                ],
+                "groupBy": "",
+                "errorColumn": ""
+              }
+            },
+            "data_source_name": "Apica Monitoring"
+          },
+          {
+            "query": "((node_memory_MemTotal_bytes{instance=~'.*',job='node-exporter'} - node_memory_MemFree_bytes{instance=~'.*',job='node-exporter'}) / (node_memory_MemTotal_bytes{instance=~'.*',job='node-exporter'} )) * 100&duration=1h&step=5m",
+            "chart_type": "gauge",
+            "name": "Ram Used",
+            "schema": "node_memory_MemTotal_bytes",
+            "options": {
+              "label": "percent",
+              "order": 5,
+              "zone": {
+                "alert": 60,
+                "danger": 80
+              },
+              "plot": {
+                "xLabel": "Timestamp",
+                "yLabel": "Bytes/sec",
+                "x": "Timestamp",
+                "y": [
+                  "value"
+                ],
+                "groupBy": "hostname",
+                "errorColumn": ""
+              }
+            },
+            "data_source_name": "Apica Monitoring"
+          }
+        ]
+      }
+    ]
+  }
+
+
+
+
